@@ -5,7 +5,7 @@ function md5(data) {
   return hash.words.join('-');
 }
 
-function hash() {
+function hash(min, max) {
   process.stdout.write('\nstart');
   let index = -1;
   const maps = new Array();
@@ -13,8 +13,8 @@ function hash() {
     maps[i] = new Map();
   }
 
-  for (let i = 100000000; i < 1000000000; i++) {
-    if ((i - 100000000) % 16777216 > 0) {
+  for (let i = min; i < max; i++) {
+    if ((i - min) % 16777216 > 0) {
       process.stdout.write(`\rindex: ${index} - ${i}`);
       for (let j = 0; j <= index; j++) {
         if (maps[j].has(md5(i.toString()))) {
@@ -31,4 +31,4 @@ function hash() {
   process.stdout.write('\nend');
 }
 
-hash();
+hash(100000000, 1000000000);
